@@ -1,12 +1,12 @@
 #-*- coding: utf-8 -*-
-from django.contrib.auth import models as auth_models
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from filer.models import filemodels
+from filer.settings import settings as filer_settings
 
 
 class Clipboard(models.Model):
-    user = models.ForeignKey(auth_models.User, verbose_name=_('user'), related_name="filer_clipboards")
+    user = models.ForeignKey(filer_settings.AUTH_USER_MODEL, verbose_name=_('user'), related_name="filer_clipboards")
     files = models.ManyToManyField(
                         'File', verbose_name=_('files'), related_name="in_clipboards",
                         through='ClipboardItem')

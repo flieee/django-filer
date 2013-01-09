@@ -96,7 +96,7 @@ class Folder(models.Model, mixins.IconsMixin):
                                related_name='children')
     name = models.CharField(_('name'), max_length=255)
 
-    owner = models.ForeignKey(auth_models.User, verbose_name=('owner'),
+    owner = models.ForeignKey(filer_settings.AUTH_USER_MODEL, verbose_name=('owner'),
                               related_name='filer_owned_folders',
                               null=True, blank=True)
 
@@ -242,7 +242,7 @@ class FolderPermission(models.Model):
     folder = models.ForeignKey(Folder, verbose_name=('folder'), null=True, blank=True)
 
     type = models.SmallIntegerField(_('type'), choices=TYPES, default=ALL)
-    user = models.ForeignKey(auth_models.User,
+    user = models.ForeignKey(filer_settings.AUTH_USER_MODEL,
                              related_name="filer_folder_permissions",
                              verbose_name=_("user"), blank=True, null=True)
     group = models.ForeignKey(auth_models.Group,
